@@ -1,0 +1,19 @@
+stages:
+  - build
+
+build:
+  stage: build
+
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+  script:
+    - |
+      docker build . \
+          -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME \
+          --build-arg BUILD_VERSION="$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID" \
+          --build-arg BUILD_DATE="$(date +%Y%m%d_%H%M%S)"
+    - echo $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    - docker images
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    - docker logout
