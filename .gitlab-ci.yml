@@ -3,7 +3,7 @@ stages:
 
 build:
   tags:
-    - docker
+    - shell
     
   stage: build
 
