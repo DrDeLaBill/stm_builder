@@ -1,12 +1,14 @@
 FROM debian:trixie-20240926 AS builder
 
 ENV APP_ROOT=/app
+ENV SRC_ROOT=$APP_ROOT/src
 
-RUN mkdir -p $APP_ROOT $APP_ROOT/src
+RUN mkdir -p $APP_ROOT $SRC_ROOT
+
 WORKDIR $APP_ROOT
 
 RUN apt-get update \
- && apt-get install -y wget
+ && apt-get install -y wget build-essential
 
 RUN wget -O arm-none-eabi-gcc.tar.gz "https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v11.3.1-1.1/xpack-arm-none-eabi-gcc-11.3.1-1.1-linux-x64.tar.gz" \
  && tar -xvf arm-none-eabi-gcc.tar.gz \
