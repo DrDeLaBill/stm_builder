@@ -4,10 +4,13 @@ ENV APP_ROOT=/app
 ENV SRC_ROOT=$APP_ROOT/src
 ENV CMAKE_PACKAGE=cmake-3.26.0-linux-x86_64
 ENV GCC_PACKAGE=xpack-arm-none-eabi-gcc-11.3.1-1.1
+ENV BUILD_MIRROR_URL=deb.debian.org
 
 RUN mkdir -p $APP_ROOT $SRC_ROOT
 
 WORKDIR $APP_ROOT
+
+RUN sed "s/deb.debian.org/$BUILD_MIRROR_URL/g" /etc/apt/sources.list
 
 RUN apt-get update \
  && apt-get install -y wget build-essential
