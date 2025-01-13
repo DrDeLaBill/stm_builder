@@ -1,6 +1,6 @@
 ARG BUILD_MIRROR_URL=deb.debian.org
 
-FROM debian:trixie-20240926 AS builder
+FROM debian:trixie-20241223 AS builder
 
 ENV APP_ROOT=/app
 ENV SRC_ROOT=$APP_ROOT/src
@@ -11,7 +11,7 @@ RUN mkdir -p $APP_ROOT $SRC_ROOT
 
 WORKDIR $APP_ROOT
 
-RUN sed -i "s/deb.debian.org/$BUILD_MIRROR_URL/g" /etc/apt/sources.list.d/sources.list
+RUN sed -i "s/deb.debian.org/$BUILD_MIRROR_URL/g" /etc/apt/sources.list
 
 RUN apt-get update \
  && apt-get install -y wget build-essential
