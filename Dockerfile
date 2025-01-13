@@ -1,6 +1,6 @@
 ARG BUILD_MIRROR_URL=deb.debian.org
 
-FROM debian:trixie-20241223 AS builder
+FROM debian:bookworm-20241223 AS builder
 
 ENV APP_ROOT=/app
 ENV SRC_ROOT=$APP_ROOT/src
