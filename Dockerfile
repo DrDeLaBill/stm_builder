@@ -11,7 +11,8 @@ RUN mkdir -p $APP_ROOT $SRC_ROOT
 
 WORKDIR $APP_ROOT
 
-RUN sed -i "s/deb.debian.org/$BUILD_MIRROR_URL/g" /etc/apt/sources.list && ls -al /etc/apt
+RUN ls -al /etc/apt
+RUN sed -i "s/deb.debian.org/$BUILD_MIRROR_URL/g" /etc/apt/sources.list
 
 RUN apt-get update \
  && apt-get install -y wget build-essential
