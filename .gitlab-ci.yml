@@ -15,6 +15,6 @@ build:
       docker build . \
           -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME \
           --build-arg BUILD_VERSION="$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID" \
-          --build-arg BUILD_DATE="$(date +%Y%m%d_%H%M%S)"
+          --build-arg BUILD_DATE="$(date +%Y%m%d_%H%M%S)" \
           --build-arg BUILD_MIRROR_URL="$CI_MIRROR_URL"
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
