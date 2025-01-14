@@ -1,6 +1,6 @@
-ARG BUILD_MIRROR_URL=deb.debian.org
+FROM debian:trixie-20250113-slim AS builder
 
-FROM debian:bookworm-20241223 AS builder
+ARG BUILD_MIRROR_URL=deb.debian.org
 
 ENV APP_ROOT=/app
 ENV SRC_ROOT=$APP_ROOT/src
@@ -11,13 +11,13 @@ RUN mkdir -p $APP_ROOT $SRC_ROOT
 
 WORKDIR $APP_ROOT
 
-RUN sed -i "s/deb.debian.org/$BUILD_MIRROR_URL/g" /etc/apt/sources.list
+RUN sed -i "s/deb.debian.org/$BUILD_MIRROR_URL/g" /etc/apt/sources.list.d/debian.sources
 
-RUN apt-get update \
- && apt-get install -y wget build-essential
+RUN apt-get update > /dev/null \
+ && apt-get install -qq -y wget build-essential > /dev/null
 
 RUN wget -q -O arm-none-eabi-gcc.tar.gz "https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v11.3.1-1.1/$GCC_PACKAGE-linux-x64.tar.gz" \
- && tar -xvf arm-none-eabi-gcc.tar.gz \
+ && tar -xf arm-none-eabi-gcc.tar.gz \
  && rm arm-none-eabi-gcc.tar.gz
 
 RUN ln -s $APP_ROOT/$GCC_PACKAGE/bin/arm-none-eabi-g++ /usr/bin/arm-none-eabi-g++ \
@@ -28,7 +28,7 @@ RUN ln -s $APP_ROOT/$GCC_PACKAGE/bin/arm-none-eabi-g++ /usr/bin/arm-none-eabi-g+
 
 
 RUN wget -q -O cmake.tar.gz "https://cmake.org/files/v3.26/$CMAKE_PACKAGE.tar.gz" \
- && tar xzf cmake.tar.gz \
+ && tar -xf cmake.tar.gz \
  && rm -rf cmake.tar.gz
 
 RUN ln -s $APP_ROOT/$CMAKE_PACKAGE/bin/cmake /usr/bin/cmake
