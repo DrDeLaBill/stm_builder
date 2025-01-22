@@ -69,7 +69,7 @@ endforeach()
 add_executable(${CMAKE_PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
 
 # Указываем путь к файлу компоновщика
-file(GLOB LINKER_SCRIPT_PATH "${CMAKE_SOURCE_DIR}/*.ld")
+file(GLOB LINKER_SCRIPT_PATH "${CMAKE_SOURCE_DIR}/*FLASH.ld")
 set(LINKER_SCRIPT ${LINKER_SCRIPT_PATH})
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
 
