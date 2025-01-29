@@ -33,6 +33,6 @@ github-push:
   stage: github-push
 
   script:
-    - git checkout origin main
+    - git checkout origin/main
     - git remote set-url origin https://$CI_GITHUB_TOKEN@$CI_GITHUB_REP_URL
     - git push origin $CI_COMMIT_REF_NAME 
