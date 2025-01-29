@@ -5,8 +5,8 @@ on:
     branches: [ "main" ]
     
 env:
-  REGISTRY: ghcr.io | lower
-  IMAGE_NAME: ${{ github.repository | lower }}
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push:
@@ -29,5 +29,5 @@ jobs:
         context: .
         push: true
         tags: |
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME | lower }}:latest
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME | lower }}:${{ github.sha }}
