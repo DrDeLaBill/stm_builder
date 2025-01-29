@@ -24,7 +24,7 @@ jobs:
     - id: image_name
       uses: vishalmamidi/lowercase-action@v1
       with:
-        string: ${{ github.actor }}
+        string: ${{ env.IMAGE_NAME }}
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@v3
       with:
