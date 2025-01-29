@@ -33,6 +33,9 @@ github-push:
   stage: github-push
 
   script:
-    - git branch
+    - git branch tmp
+    - git commit -m "$CI_COMMIT_MESSAGE"
+    - git checkout main
+    - git merge tmp
     - git remote set-url origin https://$CI_GITHUB_TOKEN@$CI_GITHUB_REP_URL
     - git push origin $CI_COMMIT_REF_NAME 
