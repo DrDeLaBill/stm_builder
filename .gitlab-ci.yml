@@ -1,5 +1,11 @@
 stages:
   - build
+  - github-push
+
+
+variables:
+  CI_GITHUB_REP_URL: github.com/DrDeLaBill/stm_builder.git
+
 
 build:
   tags:
@@ -18,3 +24,14 @@ build:
           --build-arg BUILD_DATE="$(date +%Y%m%d_%H%M%S)" \
           --build-arg BUILD_MIRROR_URL="$CI_MIRROR_URL"
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+
+
+github-push:
+  tags:
+    - shell
+    
+  stage: github-push
+
+  script:
+    - git remote set-url origin https://$BUILD_GITHUB_TOKEN@$CI_GITHUB_REP_URL
+    - git push origin $CI_COMMIT_REF_NAME 
